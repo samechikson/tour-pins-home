@@ -1,0 +1,10 @@
+@import "variables.scss";
+@import "mixins.scss";
+@import "global.scss";
+@import "nav.scss";
+@import "resume-item.scss";
+@import "bootstrap-overrides.scss";
+
+.box-shadow {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
