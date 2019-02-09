@@ -9,6 +9,8 @@ const rename = require("gulp-rename");
 const sass = require("gulp-sass");
 const uglify = require("gulp-uglify");
 const pkg = require('./package.json');
+const del = require('del');
+var merge = require('merge-stream');
 
 // Set the banner content
 const banner = ['/*!\n',
@@ -129,3 +131,15 @@ gulp.task("default", gulp.parallel('vendor', css, js));
 
 // dev task
 gulp.task("dev", gulp.parallel(watchFiles, browserSync));
+
+function firebaseHosting(callback) {
+  return merge(
+    gulp.src('./index.html').pipe(gulp.dest('./public/')),
+    gulp.src('./js/*').pipe(gulp.dest('./public/js/')),
+    gulp.src('./css/*').pipe(gulp.dest('./public/css/')),
+    gulp.src('./vendor/**').pipe(gulp.dest('./public/vendor/')),
+    gulp.src('./img/*').pipe(gulp.dest('./public/img/'))
+  )
+}
+
+gulp.task("firebase-build", firebaseHosting)

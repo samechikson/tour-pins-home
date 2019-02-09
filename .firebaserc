@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "tour-pin-sheets"
+  },
+  "targets": {
+    "tour-pin-sheets": {
+      "hosting": {
+        "home": [
+          "tour-pins-home"
+        ]
+      }
+    }
+  }
+}
