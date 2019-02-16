@@ -135,6 +135,7 @@ gulp.task("dev", gulp.parallel(watchFiles, browserSync));
 function firebaseHosting(callback) {
   return merge(
     gulp.src('./index.html').pipe(gulp.dest('./public/')),
+    gulp.src('./favicon.png').pipe(gulp.dest('./public/')),
     gulp.src('./js/*').pipe(gulp.dest('./public/js/')),
     gulp.src('./css/*').pipe(gulp.dest('./public/css/')),
     gulp.src('./vendor/**').pipe(gulp.dest('./public/vendor/')),
