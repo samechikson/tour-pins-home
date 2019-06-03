@@ -10,6 +10,9 @@
         "responsive",
         "theme"
     ],
+    "scripts": {
+        "build": "gulp firebase-build"
+    },
     "homepage": "https://tour-pins.com",
     "license": "MIT",
     "author": "Samuel Echikson<samuel.echikson@gmail.com>",

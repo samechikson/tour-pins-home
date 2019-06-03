@@ -25,4 +25,9 @@
     target: '#sideNav'
   });
 
+  // vimeo tag size
+  var yRatio = 400 / 640;
+  $('#videoTutorialIframe').width = window.innerWidth - 200;
+  $('#videoTutorialIframe').height = (window.innerHeight - 200) * yRatio;
+
 })(jQuery); // End of use strict
