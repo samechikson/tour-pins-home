@@ -22,9 +22,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
       - name: build the public files
-        run: npm run build
+        run: npm install && npm run build
+        
   deploy:
     name: Deploy
     needs: build
@@ -35,8 +35,8 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: dist
-          path: dist
+          name: public
+          path: public
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
