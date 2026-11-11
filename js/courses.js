@@ -4,6 +4,9 @@ const COURSES_URL =
   "https://firestore.googleapis.com/v1/projects/tour-pin-sheets/databases/(default)/documents/courses" +
   "?pageSize=300&mask.fieldPaths=name&mask.fieldPaths=location";
 
+// Only a few courses show until the visitor searches.
+const INITIAL_COUNT = 5;
+
 const searchInput = document.getElementById("course-search");
 const statusEl = document.getElementById("course-status");
 const listEl = document.getElementById("course-list");
@@ -37,7 +40,11 @@ async function fetchCourses() {
     pageToken = data.nextPageToken;
   } while (pageToken);
 
-  return courses.sort((a, b) => a.name.localeCompare(b.name));
+  // Some courses were set up more than once; list each name/location pair once.
+  const unique = new Map(
+    courses.map((course) => [`${course.name}|${course.location}`, course])
+  );
+  return [...unique.values()].sort((a, b) => a.name.localeCompare(b.name));
 }
 
 function courseCard(course) {
@@ -65,11 +72,13 @@ function courseCard(course) {
 }
 
 function render(courses) {
-  listEl.replaceChildren(...courses.map(courseCard));
+  const searching = !!searchInput.value.trim();
+  const shown = searching ? courses : courses.slice(0, INITIAL_COUNT);
+  listEl.replaceChildren(...shown.map(courseCard));
 
   const total = allCourses.length;
-  if (!searchInput.value.trim()) {
-    statusEl.textContent = `${total} courses available`;
+  if (!searching) {
+    statusEl.textContent = `${total} courses available. Search to find yours.`;
   } else if (courses.length === 0) {
     statusEl.textContent = "No courses match your search.";
   } else {
